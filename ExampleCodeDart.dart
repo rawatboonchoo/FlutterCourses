@@ -1,7 +1,7 @@
-- Object เป็น instance ของ Class
-- Array ใน Dart จะเรียกว่า List
-    List<int>
-    List<dynamic> //ถ้าไม่รู้ตัวแปร
+// - Object เป็น instance ของ Class
+// - Array ใน Dart จะเรียกว่า List
+//     List<int>
+//     List<dynamic> //ถ้าไม่รู้ตัวแปร
 
 //link crate code
 //https://dartpad.dev/
@@ -108,19 +108,44 @@ void main() {
   print('${_image['tags'].toString()}');
   
   
+  print("------if operator check null : ?? ---------");
   
  
- print("------function---------");
+ print("------function Names parameter---------");
  //function
   var result = sum(10, 50);
+  var result2 = sum2(num1:50, num2:80); //function Names parameter
+  print(result2);
   print(result);
+  
   showMessage();
+  
+  showMessage2(msg:'Dart', isShow:true, age:null); //function Names parameter
+  
+  
 }
-//function
+//end main
+
+//function return
 int sum(int a, int b){
     //function return
     return a + b;
 }
+
+//function show
 void showMessage(){
   print('Hello');
 }
+
+//function Names parameter
+void showMessage2({String msg, bool isShow, int age}){
+  print('Hello $msg $isShow ${age ?? 0 }'); //if operator check null : ??
+}
+
+//function Names parameter จะใช้บ่อยมากใน Fultter
+int sum2({int num1, int num2}){
+    
+  return num1 + num2 ;
+}
+
+
