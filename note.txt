@@ -1,0 +1,22 @@
+การอัพโหลดไฟล์ขึ้น Github
+--ติดตั้ง Git
+--set goble user and email ใน git bash
+
+--git config --global user.name "rawat boonchoo"
+--git config --global user.email "rawat boonchoo.rawat@gmail.com"
+
+--เข้าหน้าเว็บ Github
+--Create a new repository
+--เปิด git bash
+--ทำการ clone  ลงเครื่องใช้คำสั่ง
+--git glone https://github.com/rawatboonchoo/project.git
+--cd project
+
+--คำสั่ง
+git add <file_name> // ไฟล์เดียว
+git add . // หลายไฟล์
+git add *.html // หลายไฟล์ระบุนามสกุล
+------
+git commit -m "ข้อความอธิบายการเปลี่ยนแปลง"
+------
+git push
