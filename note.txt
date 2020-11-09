@@ -1,4 +1,6 @@
 การอัพโหลดไฟล์ขึ้น Github
+https://www.memo8.com/git-basic-command/
+https://medium.com/@pakin/git-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3-git-is-your-friend-c609c5f8efea
 --ติดตั้ง Git
 --set goble user and email ใน git bash
 
@@ -13,10 +15,18 @@
 --cd project
 
 --คำสั่ง
+git status
+------
 git add <file_name> // ไฟล์เดียว
 git add . // หลายไฟล์
 git add *.html // หลายไฟล์ระบุนามสกุล
 ------
-git commit -m "ข้อความอธิบายการเปลี่ยนแปลง"
+git commit -m "message"          #ยืนยันการเปลี่ยนแปลงพร้อมข้อความ
+git commit -am "message"         #เพิ่มการเปลี่ยนแปลงและยืนยันพร้อมข้อความ
+git commit                       #เพิ่มข้อความในโปรแกรม vi 
+#ยืนยันการเปลี่ยนแปลงพร้อมข้อความและ merge ลงใน commit ล่าสุด
+git commit --amend -m "message"
 ------
+#ส่งการเปลี่ยนแปลง Branch master ไปยัง Remote ที่ชื่อ origin
+git push origin master 
 git push
