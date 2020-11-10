@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/pages/home_page.dart';
+import 'package:flutterapp/pages/home_stack/about_page.dart';
+import 'package:flutterapp/pages/home_stack/home_page.dart';
+
 
 //Container เทียบเท่ากับ div ของ Html
 void main() {
@@ -13,25 +15,27 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Color(0xff78002e),
-        //primarySwatch: Colors.deepOrange, //เปลี่ยนสีทั้ง app
-        //primaryColor: Colors.deepOrange[800],//primaryColor สามารถใส่น้ำหนักสีได้ ทั้ง app | อยากใส่สีเอง เรียก class Color(oxffตามด้วยรหัสสี) | https://material.io/resources/color/#!/?view.left=0&view.right=0
-        canvasColor: Colors.white, //สี blackground
-        accentColor: Colors.deepPurple, // สีของ ปุม
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+          primaryColor: Color(0xff78002e),
+          //primarySwatch: Colors.deepOrange, //เปลี่ยนสีทั้ง app
+          //primaryColor: Colors.deepOrange[800],//primaryColor สามารถใส่น้ำหนักสีได้ ทั้ง app | อยากใส่สีเอง เรียก class Color(oxffตามด้วยรหัสสี) | https://material.io/resources/color/#!/?view.left=0&view.right=0
+          canvasColor: Colors.white, //สี blackground
+          accentColor: Colors.deepPurple, // สีของ ปุม
+          visualDensity: VisualDensity.adaptivePlatformDensity,
 
-        //ข้อความ เปลี่ยนทั้ง app ที่มีการเรียกใช้ headline1
-        textTheme: TextTheme(
-          headline1: TextStyle(
-            fontSize: 30,
-            color: Colors.orange,
-            fontWeight: FontWeight.bold
-          )
-        )
-
-      ),
+          //ข้อความ เปลี่ยนทั้ง app ที่มีการเรียกใช้ headline1
+          textTheme: TextTheme(
+              headline1: TextStyle(
+                  fontSize: 30,
+                  color: Colors.orange,
+                  fontWeight: FontWeight.bold))),
       debugShowCheckedModeBanner: false, //เอา Debug ออก
-      home: MyHomePage(title: 'Flutter Mobile Framework'),
+      //home: MyHomePage(title: 'Flutter Mobile Framework'), เนื่องจากจะใช้ initialRount แทน
+      initialRoute: '/', //การสร้างลิงค์สำหรับเปิดหน้า
+      //sub rount
+      routes: {
+        '/': (context)      => MyHomePage(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
+        '/about': (context) => AboutPage(),
+      },
     );
   }
 }

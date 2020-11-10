@@ -1,5 +1,4 @@
 //importM
-
 import 'package:flutter/material.dart';
 import 'package:flutterapp/widgets/header.dart';
 
@@ -43,8 +42,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //Scaffold จะประกอบไปด้วย appBar และ body
       appBar: AppBar(
-        title: Text(widget.title),
+        //title ของ app bar
+        //title: Text(widget.title),
+        //ใส่รูปภาพแทน text
+        title: Image.asset(
+          'assets/images/logo_tot.png',
+          height: 20,
+        ),
+        centerTitle: true, //ปรับรูปกึ่งกลาง
       ),
       body: Center(
         child: Column(
@@ -67,7 +74,15 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('กดเลย'),
             ),
 
-            //เรรียก Widget class Header ที่เราเขียนเอง
+            //Button version 1.22+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/about'); //เรียกใช้หน้า abount
+              },
+              child: Text('เกี่ยวกับ'),
+            ),
+
+            //เรียก Widget class Header ที่เราเขียนเอง
             //const นำหน้ามันจะ Build แค่ครั้งเดียวในกณีที่ข้อมูลไม่มีการเปลี่ยนแปลง
             const Header(message: 'Hello TOT 2021'), // widgets ที่เราเขียนไว้
 
