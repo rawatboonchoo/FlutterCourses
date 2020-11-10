@@ -25,7 +25,7 @@ class _HomeStackState extends State<HomeStack> {
             // navigates to 'signup/choose_credentials'.
             builder = (BuildContext _) => MyHomePage();
             break;
-          case 'homestack/abount':
+          case 'homestack/about':
             builder = (BuildContext _) => AboutPage();
             break;
           default:

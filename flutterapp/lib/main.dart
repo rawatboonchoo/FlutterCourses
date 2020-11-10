@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/pages/home_stack/about_page.dart';
-import 'package:flutterapp/pages/home_stack/home_page.dart';
-
+// import 'package:flutterapp/pages/home_stack/about_page.dart';
+// import 'package:flutterapp/pages/home_stack/home_page.dart';
+import 'package:flutterapp/pages/home_stack/home_stack.dart';
 
 //Container เทียบเท่ากับ div ของ Html
 void main() {
@@ -31,10 +31,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, //เอา Debug ออก
       //home: MyHomePage(title: 'Flutter Mobile Framework'), เนื่องจากจะใช้ initialRount แทน
       initialRoute: '/', //การสร้างลิงค์สำหรับเปิดหน้า
-      //sub rount
+      //groub rout
       routes: {
-        '/': (context)      => MyHomePage(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
-        '/about': (context) => AboutPage(),
+        '/': (context) =>
+            HomeStack(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
       },
     );
   }

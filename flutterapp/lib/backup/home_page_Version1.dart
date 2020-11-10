@@ -1,5 +1,4 @@
 //importM
-
 import 'package:flutter/material.dart';
 import 'package:flutterapp/widgets/header.dart';
 
@@ -65,59 +64,58 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         //leading: //คือ icon ทางซ้ายบนของ Appbar
       ),
-      body: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(20),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 2, //จำนวน Column
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: Column(
+      body: Center(
+        child: Column(
+          //column บน ลงล่าง
+          mainAxisAlignment: MainAxisAlignment.center,
+          //MainAxisAlignment ของ Column คือแนวตั้ง
+          children: <Widget>[
+            //row ขวาไปซ้าย
+            Row(
+              //MainAxisAlignment ของ Row คือแนวนอน
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.person_add,
-                  size: 80,
-                  color: Colors.blue,
-                ),
-                Text(
-                  'เกี่ยวกับเรา',
-                  style: TextStyle(fontSize: 16, color: Colors.pink),
-                ),
-              ],
+              children: [Text('Hello'), Text('Flutter')],
             ),
-            color: Colors.teal[100],
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text('Heed not the rabble'),
-            color: Colors.teal[200],
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text('Sound of screams but the'),
-            color: Colors.teal[300],
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text('Who scream'),
-            color: Colors.teal[400],
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text('Revolution is coming...'),
-            color: Colors.teal[500],
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text('Revolution, they...'),
-            color: Colors.teal[600],
-          ),
-        ],
-      ),
+            //text
+            Text(
+              '$title .LTD',
+              //การเรียกใช้ textTheme จากหน้า main
+              style: Theme.of(context).textTheme.headline1,
+            ),
+            //Button version 1.22+
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  //method Widget จะถูก Re bulid อีกครั้ง
+                  title = 'TOT.CO.TH';
+                });
+              },
+              child: Text('กดเลย'),
+            ),
 
+            //Button version 1.22+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                    context, 'homestack/about'); //เรียกใช้หน้า abount
+              },
+              child: Text('เกี่ยวกับ'),
+            ),
+
+            //เรียก Widget class Header ที่เราเขียนเอง
+            //const นำหน้ามันจะ Build แค่ครั้งเดียวในกณีที่ข้อมูลไม่มีการเปลี่ยนแปลง
+            const Header(message: 'Hello TOT 2021'), // widgets ที่เราเขียนไว้
+
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
