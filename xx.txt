@@ -1,0 +1,18 @@
+StatelessWidget : ไว้สำหรับโชว์
+ประกอบด้วย
+-extends
+    //พิม statelessW
+    extends StatelessWidget
+-contructer
+    const Header({Key key}) : super(key: key);
+-build //เอาไว้แสดง UI
+    Widget build(BuildContext context) {
+    return Text('TOT 2020', style: TextStyle(color: Colors.blue[400]));
+  }
+
+
+ StatefulWidget :  ไว้สำหรับกรณีที่มีการเปลี่ยน Data
+ จะมี 2 class เสมอ
+-extends 
+    extends StatelessWidget
+    createState()

@@ -1,4 +1,12 @@
 การอัพโหลดไฟล์ขึ้น Github
+//วีดีโอย้อนหลัง | คูมือ
+http://bit.ly/flutter_tot_2020
+ลิงก์โค้ด 
+https://gitlab.com/codingthailand/flutter-tot
+
+*-*
+ship + alt + f = format code
+
 https://www.memo8.com/git-basic-command/
 https://medium.com/@pakin/git-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3-git-is-your-friend-c609c5f8efea
 --ติดตั้ง Git

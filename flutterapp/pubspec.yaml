@@ -20,7 +20,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
-dependencies:
+dependencies: #ไลบารี่ เวลาจะเพิ่มมาเพิ่มตรงนี้
   flutter:
     sdk: flutter
 
@@ -45,7 +45,7 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  # assets: #สำหรัสเซ็ทพารื?รูป
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
