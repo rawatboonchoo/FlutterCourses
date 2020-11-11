@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutterapp/pages/home_stack/about_page.dart';
 // import 'package:flutterapp/pages/home_stack/home_page.dart';
 import 'package:flutterapp/pages/home_stack/home_stack.dart';
+import 'package:flutterapp/pages/product_stack/product_stack.dart';
 
 //Container เทียบเท่ากับ div ของ Html
 void main() {
@@ -33,8 +34,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', //การสร้างลิงค์สำหรับเปิดหน้า
       //groub rout
       routes: {
-        '/': (context) => HomeStack(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
-        '/homestack' : (context) => HomeStack(),
+        '/': (context) =>
+            HomeStack(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
+        '/homestack': (context) => HomeStack(),
+        '/productstack': (context) => ProductStack(),
       },
     );
   }

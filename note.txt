@@ -38,3 +38,8 @@ git commit --amend -m "message"
 #ส่งการเปลี่ยนแปลง Branch master ไปยัง Remote ที่ชื่อ origin
 git push origin master 
 git push
+
+
+---------
+Set PERMISSION Path
+flutterapp\android\app\src\main\AndroidManifest.xml

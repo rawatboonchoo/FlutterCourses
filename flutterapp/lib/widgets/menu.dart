@@ -27,7 +27,9 @@ class _MenuState extends State<Menu> {
             title: Text('Home'),
             trailing: Icon(Icons.arrow_right), //ขาว
             //ModalRoute check rount จาก home_stack.dart
-            selected: ModalRoute.of(context).settings.name == 'homestack/home' ? true : false, //แจ้งว่าเราเลือกเมนูอะไรอยู่
+            selected: ModalRoute.of(context).settings.name == 'homestack/home'
+                ? true
+                : false, //แจ้งว่าเราเลือกเมนูอะไรอยู่
             onTap: () {
               //ไว้สำหรับใส่ action
               //home stack
@@ -40,11 +42,21 @@ class _MenuState extends State<Menu> {
           ),
           ListTile(
             leading: Icon(Icons.star_border), //วซ้าย
-            title: Text('สิ้นค้า'),
+            title: Text('Product'),
             trailing: Icon(Icons.arrow_right), //ขาว
+            selected:
+                ModalRoute.of(context).settings.name == 'productstack/product'
+                    ? true
+                    : false,
             onTap: () {
               //ไว้สำหรับใส่ action
               //product stack
+              //ไว้สำหรับใส่ action
+              //pushName คือการทับกันไม่ควรใช้กับพวกเมนู
+              //pushNamedAndRemoveUntil ถ้ามีหน้าอะไรทับกันอยู่ จะลบทุกอย่าง และจะเป็นหน้าแรกแน่ๆ
+              //rootNavigator: true เนื่องจากหน้า manu อยู่คนละ Forder กับ product_page
+              Navigator.of(context, rootNavigator: true)
+                  .pushNamedAndRemoveUntil('/productstack', (route) => false);
             },
           )
         ],
