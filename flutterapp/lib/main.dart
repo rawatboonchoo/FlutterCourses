@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', //การสร้างลิงค์สำหรับเปิดหน้า
       //groub rout
       routes: {
-        '/': (context) =>
-            HomeStack(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
+        '/': (context) => HomeStack(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
+        '/homestack' : (context) => HomeStack(),
       },
     );
   }

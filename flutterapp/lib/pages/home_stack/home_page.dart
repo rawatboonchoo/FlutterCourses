@@ -1,7 +1,9 @@
 //importM
 
+
 import 'package:flutter/material.dart';
 import 'package:flutterapp/widgets/header.dart';
+import 'package:flutterapp/widgets/menu.dart';
 
 class MyHomePage extends StatefulWidget {
   //StatefulWidget จะมี _MyHomePageState
@@ -13,15 +15,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String title = "TOT Plubic Company";
+  // int _counter = 0;
+  // String title = "TOT Plubic Company";
 
-  void _incrementCounter() {
-    setState(() {
-      //ทุกครั้งที่มีการ กดจะไปเรียก Widget build
-      _counter++;
-    });
-  }
+  // void _incrementCounter() {
+  //   setState(() {
+  //     //ทุกครั้งที่มีการ กดจะไปเรียก Widget build
+  //     _counter++;
+  //   });
+  // }
 
   //initState //จะเกิดขึ้น 1 ครั้งเมื่อมีการเรียกใช้งานจากหน้าจอ one-only
   @override
@@ -44,6 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       //Scaffold จะประกอบไปด้วย appBar และ body
+      //ปุ่มเมนู
+      // drawer: เปิดจากด้านซ้าย
+      //endDrawer: เปิดจากด้านขวา
+      
+      drawer: Menu() , //ควรที่จะแยกเพื่อมีการเรียกใช้หลายหน้า
       appBar: AppBar(
         //title ของ app bar
         //title: Text(widget.title),
@@ -86,20 +93,51 @@ class _MyHomePageState extends State<MyHomePage> {
                   'เกี่ยวกับเรา',
                   style: TextStyle(fontSize: 16, color: Colors.pink),
                 ),
+                OutlineButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, 'homestack/about'); //เรียกใช้หน้า abount
+                  },
+                  child: Text('เกี่ยวกับ'),
+                )
               ],
             ),
             color: Colors.teal[100],
           ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text('Heed not the rabble'),
-            color: Colors.teal[200],
+          GestureDetector(
+            //GestureDetector เพื่อให้ Container สามารถกด ไดเ
+            onTap: () {
+              //onTap คือการใช้ มือกด ใน GestureDetector จะไม่มี onPressed
+              Navigator.pushNamed(
+                  context, 'homestack/about'); //เรียกใช้หน้า abount
+            },
+            child: Container(
+              padding: const EdgeInsets.all(8),              
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.map_rounded, size: 80, color: Colors.amberAccent[900],
+                  ),
+                  Text('แผนที่')
+                ],
+              ),
+              color: Colors.teal[200],
+            ),
           ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text('Sound of screams but the'),
-            color: Colors.teal[300],
-          ),
+          OutlineButton(
+
+            onPressed: (){},
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                 Icon(
+                    Icons.map_rounded, size: 80, color: Colors.amberAccent[900],
+                  ),
+                  Text('แผนที่')
+              ],
+            ),
+            ),
           Container(
             padding: const EdgeInsets.all(8),
             child: const Text('Who scream'),
@@ -118,11 +156,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
