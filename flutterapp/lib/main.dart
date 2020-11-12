@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/pages/home_stack/home_stack.dart';
 import 'package:flutterapp/pages/login_page.dart';
 import 'package:flutterapp/pages/product_stack/product_stack.dart';
+import 'package:flutterapp/pages/register_page.dart';
 
 //Container เทียบเท่ากับ div ของ Html
 void main() {
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       //groub rout
       routes: {
         '/' : (context) => LoginPage(), //หน้าแรก
+        '/register' : (context) => RegisterPage(), //หน้าแรก
         //'/': (context) =>HomeStack(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
         '/homestack': (context) => HomeStack(),
         '/productstack': (context) => ProductStack(),

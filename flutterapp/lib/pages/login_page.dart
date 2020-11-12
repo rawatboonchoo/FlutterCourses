@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutterapp/pages/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -35,13 +36,20 @@ class _LoginPageState extends State<LoginPage> {
                   FlutterLogo(
                     size: 90,
                   ),
+                  //ฟอร์ม
                   FormBuilder(
                     key: _fbKey,
-                    initialValue: {'email': ''},
+                    initialValue: {'email': '', 'password': ''},
+                    autovalidateMode: AutovalidateMode
+                        .always, // แสดง validate ทันทีเมื่อมีการคีย์
                     child: Column(
                       children: <Widget>[
                         FormBuilderTextField(
+                          style: TextStyle(color: Colors.white),
                           attribute: "email",
+                          maxLines: 1, //บรรทัดเดียว
+                          keyboardType: TextInputType
+                              .emailAddress, //การเลือกรูปแบบคีบอร์ด
                           decoration: InputDecoration(labelText: "Email"),
                           validators: [
                             FormBuilderValidators.required(
@@ -50,13 +58,31 @@ class _LoginPageState extends State<LoginPage> {
                                 errorText: "Pattel mail not found"),
                           ],
                         ),
+                        SizedBox(
+                          height: 20,
+                        ), //คั้นระยะห่าง
+                        FormBuilderTextField(
+                          attribute: "password",
+                          maxLines: 1, //บรรทัดเดียว
+                          keyboardType: TextInputType
+                              .visiblePassword, //การเลือกรูปแบบคีบอร์ด
+                          obscureText: true, //ให้เห็นพาสเวิดเป็น ...
+                          decoration: InputDecoration(labelText: "Password"),
+                          validators: [
+                            FormBuilderValidators.required(
+                                errorText: "Plaese password.."),
+                            FormBuilderValidators.minLength(3,
+                                errorText: 'password number next tree'),
+                          ],
+                        ),
                       ],
                     ),
                   ),
+                  SizedBox(height: 20),
                   Row(
                     children: <Widget>[
                       MaterialButton(
-                        child: Text("Submit"),
+                        child: Text("Log In"),
                         onPressed: () {
                           if (_fbKey.currentState.saveAndValidate()) {
                             print(_fbKey.currentState.value);
@@ -64,9 +90,10 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
                       MaterialButton(
-                        child: Text("Reset"),
+                        child: Text("Register"),
                         onPressed: () {
-                          _fbKey.currentState.reset();
+                          //_fbKey.currentState.reset();
+                          Navigator.pushNamed(context, '/register');
                         },
                       ),
                     ],
