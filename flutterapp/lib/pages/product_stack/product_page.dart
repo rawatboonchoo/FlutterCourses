@@ -17,6 +17,7 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   //สร้างตัวแปรมารับข้อมูลมทราเป็น arra
   List<Data> data = [];
+  bool isLoading = true; //ทำโหลดก่อนดึงดาต้า
 
   //ดึงข้อมูลมาจาก Database ข้อมูลต้องเป็นรูปแบบ json
   Future<void> getData() async {
@@ -27,12 +28,23 @@ class _ProductPageState extends State<ProductPage> {
     //Decode String to Json
     //print(json.decode(response.body));
     //นำข้อมูล json ไปใส่ใน model ที่สร้างไว้
-    final Product product = Product.fromJson(json.decode(response.body));
-    //print(product.data);
-    setState(() {
-      //อย่าลืม setStat()
-      data = product.data;
-    });
+    if (response.statusCode == 200) {
+      //check response.statusCode == 200
+      final Product product = Product.fromJson(json.decode(response.body));
+      //print(product.data);
+      setState(() {
+        //อย่าลืม setStat()
+        data = product.data;
+        isLoading = false;
+      });
+      print('load data scuucessed');
+    } else {
+      setState(() {
+        //อย่าลืม setStat()
+        isLoading = false;
+      });
+      print('error from backend status cide 400/500');
+    }
   }
 
   @override
@@ -45,7 +57,6 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     print('dispose (product page)');
     super.dispose();
   }
@@ -58,54 +69,59 @@ class _ProductPageState extends State<ProductPage> {
       appBar: AppBar(
         title: Text('Product Page'),
       ),
-      body: ListView.separated(
-        itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              Navigator.pushNamed(context, 'productstack/detail');
-            },
-            leading: Container(
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                  color: const Color(0xff7c94b6),
-                  shape: BoxShape.circle, //รูปทรง กลม / เหลี่ยม
-                  image: DecorationImage(
-                    image: NetworkImage(data[index].picture),
-                    fit: BoxFit.cover,
+      body: isLoading == true
+          ? Center(child: CircularProgressIndicator()) //loading
+          : ListView.separated(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'productstack/detail',arguments: {
+                      'id': data[index].id,
+                      'title' : data[index].title
+                      }); //ส่ง arguments เป็น map ทางฝังรับต้องรับเป็น map
+                  },
+                  leading: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: const Color(0xff7c94b6),
+                        shape: BoxShape.circle, //รูปทรง กลม / เหลี่ยม
+                        image: DecorationImage(
+                          image: NetworkImage(data[index].picture),
+                          fit: BoxFit.cover,
+                        ),
+                        border: Border.all(
+                          color: Colors.white10,
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 1), // changes position of shadow
+                          ),
+                        ]),
                   ),
-                  border: Border.all(
-                    color: Colors.white10,
-                    width: 1,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 1), // changes position of shadow
+                  title: Text('${data[index].title}'),
+                  subtitle: Text('${data[index].detail}'),
+                  trailing: Chip(
+                    label: Text(
+                      '${data[index].view}',
+                      style: TextStyle(color: Colors.white),
                     ),
-                  ]),
-            ),
-            title: Text('${data[index].title}'),
-            subtitle: Text('${data[index].detail}'),
-            trailing: Chip(
-              label: Text(
-                '${data[index].view}',
-                style: TextStyle(color: Colors.white),
+                    backgroundColor: Colors.pink,
+                  ),
+                );
+              }, //โชว์รายการ
+              separatorBuilder: (context, index) =>
+                  //Divider(), //เส้นขีดขั้นจะใช้แสดงอะไร
+                  SizedBox(
+                //ระยะห่างขั้นจะใช้แสดงอะไร
+                height: 30,
               ),
-              backgroundColor: Colors.pink,
+              itemCount: data.length, //จำนวน array
             ),
-          );
-        }, //โชว์รายการ
-        separatorBuilder: (context, index) =>
-            //Divider(), //เส้นขีดขั้นจะใช้แสดงอะไร
-            SizedBox(
-          //ระยะห่างขั้นจะใช้แสดงอะไร
-          height: 30,
-        ),
-        itemCount: data.length, //จำนวน array
-      ),
     );
   }
 }
