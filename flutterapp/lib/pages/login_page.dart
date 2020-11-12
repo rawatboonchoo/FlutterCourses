@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutterapp/pages/register_page.dart';
+//import convert Decode Json
+import 'dart:convert';
+//import http
+import 'package:http/http.dart' as http;
+//flushbar show message
+import 'package:flushbar/flushbar.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -12,6 +17,57 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //form
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+
+  //login
+  Future<void> login(Map formValues) async {
+    //ข้อมูลจะเป็น Map
+
+    var url = 'https://api.codingthailand.com/api/login';
+    var response = await http.post(url,
+        headers: {'Content-Type': 'application/json'},
+        //encode object dart to json
+        body: json.encode({
+          "email": formValues['email'],
+          "password": formValues['password']
+        }));
+    //seccess status code 200
+    if (response.statusCode == 200) {
+      Map<String, dynamic> token = json.decode(response.body);
+      //print(feedback['message']);
+      Flushbar(
+        title: "Success",
+        message: '${token['access_token']}',
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: Colors.pink[300],
+        ),
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
+      )..show(context);
+
+      //กลับไปที่หน้า home_stack
+      //ทำการหน่วงเวลาแล้วค่อยไปหน้าล็อกอิน
+      // Future.delayed(Duration(minutes: 3), () {
+      //   Navigator.pop(context);
+      // });
+    } else {
+      Map<String, dynamic> err = json.decode(response.body);
+      //print(err['errors']['email'][0]);
+      Flushbar(
+        title: "Failed",
+        message: err['message'],
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: Colors.pink[300],
+        ),
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
+      )..show(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text("Log In"),
                         onPressed: () {
                           if (_fbKey.currentState.saveAndValidate()) {
-                            print(_fbKey.currentState.value);
+                            login(_fbKey.currentState.value);
                           }
                         },
                       ),

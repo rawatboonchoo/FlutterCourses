@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'dart:convert';
 //import http
 import 'package:http/http.dart' as http;
+//flushbar show message
 import 'package:flushbar/flushbar.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -31,8 +32,52 @@ class _RegisterPageState extends State<RegisterPage> {
     //     },
     //     "status_code": 422
     // }
-    // ['errors']['email][0] //มีผู้ใช้งานอีเมล์นี้ในระบบแล้ว กรุณาลองใหม่
+    // ['errors']['email'][0] //มีผู้ใช้งานอีเมล์นี้ในระบบแล้ว กรุณาลองใหม่
+    var url = 'https://api.codingthailand.com/api/register';
+    var response = await http.post(url,
+        headers: {'Content-Type': 'application/json'},
+        //encode object dart to json
+        body: json.encode({
+          "name": formValues['name'],
+          "email": formValues['email'],
+          "password": formValues['password']
+        }));
+    //seccess status code 201
+    if (response.statusCode == 201) {
+      Map<String, dynamic> feedback = json.decode(response.body);
+      //print(feedback['message']);
+      Flushbar(
+        title: "Success",
+        message: feedback['message'],
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: Colors.pink[300],
+        ),
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
+      )..show(context);
 
+      //กลับไปที่หน้า login
+      //ทำการหน่วงเวลาแล้วค่อยไปหน้าล็อกอิน
+      Future.delayed(Duration(minutes: 3), () {
+        Navigator.pop(context);
+      });
+    } else {
+      Map<String, dynamic> err = json.decode(response.body);
+      //print(err['errors']['email'][0]);
+      Flushbar(
+        title: "Failed",
+        message: err['errors']['email'][0],
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: Colors.pink[300],
+        ),
+        duration: Duration(seconds: 3),
+        leftBarIndicatorColor: Colors.blue[300],
+      )..show(context);
+    }
   }
 
   @override
