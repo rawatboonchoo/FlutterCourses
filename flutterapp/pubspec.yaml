@@ -30,6 +30,10 @@ dependencies: #ไลบารี่ เวลาจะเพิ่มมาเ�
   cupertino_icons: ^1.0.0
   #libay http
   http: ^0.12.2
+  #lutter_form_builder รูปแบบฟอร์ม
+  flutter_form_builder: ^3.14.1
+  #flushbar คล้ายๆ Toast
+  flushbar: ^1.10.4
 
 dev_dependencies:
   flutter_test:
