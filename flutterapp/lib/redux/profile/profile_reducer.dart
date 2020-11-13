@@ -22,6 +22,7 @@ class ProfileState {
 
 //reducer
 //ทำหน้าที่ return ProfileState
-profileReducer(ProfileState state, dynamic action) {
+ProfileState profileReducer(ProfileState state, dynamic action) {
   return state;
 }
+
