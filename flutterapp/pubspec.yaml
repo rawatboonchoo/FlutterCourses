@@ -38,6 +38,9 @@ dependencies: #ไลบารี่ เวลาจะเพิ่มมาเ�
   shared_preferences: ^0.5.12+4
   #flutter_redux ไว้สำหรับนำข้อมูลไปแสดงยังเพจอื่นๆ ได้
   flutter_redux: ^0.7.0
+  #google map
+  #ต้องไป set API KEY ก่อนการใช้งาน ที่ androidManifast
+  google_maps_flutter: ^1.0.6
 
 dev_dependencies:
   flutter_test:

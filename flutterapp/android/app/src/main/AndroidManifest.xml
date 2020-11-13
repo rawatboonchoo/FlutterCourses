@@ -9,7 +9,7 @@
     <!-- Internet อนุญาติให้ออกอินเตอร์เน็ต-->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application
+    <application    
         android:name="io.flutter.app.FlutterApplication"
         android:label="flutterapp"
         android:icon="@mipmap/ic_launcher">
@@ -47,5 +47,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- set key api goole map -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDNbGgnLXGelPQ7QrCtxDZwgowEbSjk7lc"/>
     </application>
 </manifest>
