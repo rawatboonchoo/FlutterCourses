@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         //'/': (context) =>HomeStack(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
         '/homestack': (context) => HomeStack(),
         '/productstack': (context) => ProductStack(),
-        '/firebase': (context) => FirePage(),
+        //'/': (context) => FirePage(), //ทดสอบ
         '/login': (context) => LoginPage(),
       },
     );
