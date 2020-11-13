@@ -19,3 +19,9 @@ class ProfileState {
         profile: profile ?? this.profile);
   }
 }
+
+//reducer
+//ทำหน้าที่ return ProfileState
+profileReducer(ProfileState state, dynamic action) {
+  return state;
+}
