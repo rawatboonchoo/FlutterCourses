@@ -40,6 +40,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //StoreProvider เป็นตัวส่งข้อมูลไปยังหน้าอื่น ๆ
+    //StoreConneter เป็นตัวรับข้อมูลไปยังหน้าอื่น ๆ ไปครอบตรงที่เราต้องการแสดงข้อมูล
     return StoreProvider(
         store: store,
         child: MaterialApp(

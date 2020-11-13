@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutterapp/redux/app_reducer.dart';
 import 'package:flutterapp/widgets/menu.dart';
 //import convert Decode Json
 import 'dart:convert';
@@ -105,14 +107,34 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             //Expanded คือการแบ่งหน้าจอ
             Expanded(
-                child: Center(
-                    child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('สวัสดีคุณ ${profile['name']}'),
-                Text('Email: ${profile['email']} Role: ${profile['role']}')
-              ],
-            ))),
+              //     child: Center(
+              //         child: Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text('สวัสดีคุณ ${profile['name']}'),
+              //     Text('Email: ${profile['email']} Role: ${profile['role']}')
+              //   ],
+              // )
+              // ),
+              //
+              //StoreConnector<AppState,Map<String, dynamic>> ตัวรับข้อมูลจาก StoreProvider
+
+              child: StoreConnector<AppState, Map<String, dynamic>>(
+                //poperty ของ StoreConnector
+                distinct: true, //ถ้าเป็นค่าเดิมไม่ต้องรีเด้นเดอร์
+                converter: (store) => store.state.profileState.profile,
+                builder: (context, profile) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('สวัสดีคุณ ${profile['name']}'),
+                      Text(
+                          'Email: ${profile['email']} Role: ${profile['role']}')
+                    ],
+                  );
+                },
+              ),
+            ),
             Expanded(
               flex: 8,
               child: GridView.count(
