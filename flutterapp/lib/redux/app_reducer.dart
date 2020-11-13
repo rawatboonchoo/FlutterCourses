@@ -18,6 +18,7 @@ class AppState {
 
 //reducer
 //ทำหน้าที่ return AppState
+//action มีหน้าทำ Update ข้อมูลใหม่
 AppState appReducer(AppState state, dynamic action) {
   return AppState(profileState: profileReducer(state.profileState, action));
 }

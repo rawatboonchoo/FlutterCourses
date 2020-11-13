@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutterapp/redux/app_reducer.dart';
 
 class Menu extends StatefulWidget {
   Menu({Key key}) : super(key: key);
@@ -14,13 +16,30 @@ class _MenuState extends State<Menu> {
       child: ListView(
         //ตกแต่งใน child ตัวนี้ ListView จะมี children สำเร็จรููป
         children: [
+          StoreConnector<AppState, Map<String, dynamic>>(
+            //poperty ของ StoreConnector
+            distinct: true, //ถ้าเป็นค่าเดิมไม่ต้องรีเด้นเดอร์
+            converter: (store) => store.state.profileState.profile,
+            builder: (context, profile) {
+              return UserAccountsDrawerHeader(
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/me.png'),
+                ),
+                accountEmail:
+                    Text('${profile['email']} role:${profile['rol']}'),
+                accountName: Text('${profile['name']} '),
+              );
+            },
+          ), //อยากเปลี่ยนข้อมูลให้เรียก action
+
           //เรียงจากบนลงล่าง
-          UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/me.png'),
-              ),
-              accountName: Text('rawat boonchoo'),
-              accountEmail: Text('boonchoo.rawat@gmail.com')),
+          // UserAccountsDrawerHeader(
+          //     currentAccountPicture: CircleAvatar(
+          //       backgroundImage: AssetImage('assets/images/me.png'),
+          //     ),
+          //     accountName: Text('rawat boonchoo'),
+          //     accountEmail: Text('boonchoo.rawat@gmail.com')
+          //     ),
           //ListTile 1 อันเท่ากับ 1 แถว จะเป็นลูกของ ListView
           ListTile(
             leading: Icon(Icons.home), //วซ้าย
