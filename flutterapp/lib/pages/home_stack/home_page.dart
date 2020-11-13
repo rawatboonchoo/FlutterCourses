@@ -1,8 +1,5 @@
-//importM
-
 
 import 'package:flutter/material.dart';
-import 'package:flutterapp/widgets/header.dart';
 import 'package:flutterapp/widgets/menu.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -88,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Icons.person_add,
                   size: 80,
                   color: Colors.blue,
+                  
                 ),
                 Text(
                   'เกี่ยวกับเรา',

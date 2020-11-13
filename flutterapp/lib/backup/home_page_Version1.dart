@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //initState //จะเกิดขึ้น 1 ครั้งเมื่อมีการเรียกใช้งานจากหน้าจอ one-only
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     //นิยมเอาไว้ดึงข้อมูลมาจากฐานข้อมูล
     print('initState (home page)');
@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //dispose //จะเกิดขึ้น 1 ครั้งเมื่อโปรแกรมถูกปิดไป
   @override
   void dispose() {
-    // TODO: implement dispose
+    
     print('dispose (home page)');
     super.dispose();
   }

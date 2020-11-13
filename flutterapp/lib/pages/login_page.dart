@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 //flushbar show message
 import 'package:flushbar/flushbar.dart';
+//shared_preferences //ไว้สำหรับเก็บข้อมูลในเครื่องรูปแบบ Key Value
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -33,18 +35,57 @@ class _LoginPageState extends State<LoginPage> {
     //seccess status code 200
     if (response.statusCode == 200) {
       Map<String, dynamic> token = json.decode(response.body);
+
+      //เกบข้อมูลลงในเครื่อง SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //เราจะเกบข้อมูลทั้งก้อน
+      //response.body มันเป็นข้อมูลสติง ในรูปแบบ json
+      await prefs.setString('token', response.body);
+
+      //get profile
+      var profileUrl = 'https://api.codingthailand.com/api/profile';
+      var responseProfile = await http.get(profileUrl,
+          headers: {'Authorization': 'Bearer ${token['access_token']}'});
+      Map<String, dynamic> profile = json.decode(responseProfile.body);
+      //decode แปลง string to dart
+      //encode แปลง dart to straing
+      //       {
+      //     "message": "success",
+      //     "status_code": 200,
+      //     "data": {
+      //         "user": {
+      //             "id": 2044,
+      //             "name": "rawat boonchoo",
+      //             "email": "rawat@gmail.com",
+      //             "email_verified_at": null,
+      //             "dob": "2019-09-18",
+      //             "role": "member",
+      //             "created_at": "2020-11-12 14:57:06",
+      //             "updated_at": "2020-11-12 14:57:06"
+      //         }
+      //     }
+      // }
+      var user = profile['data']['user']; //{id:111, name: jonf...}
+      //เกบข้อมูลลง SharedPreferences
+      await prefs.setString('profile', json.encode(user));
+      print('profile: $user');
+
+      //pushNamedAndRemoveUntil กลับไปหน้า /homestack และลบหน้าที่เคยเปิดไว้
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/homestack', (route) => false);
+
       //print(feedback['message']);
-      Flushbar(
-        title: "Success",
-        message: '${token['access_token']}',
-        icon: Icon(
-          Icons.info_outline,
-          size: 28.0,
-          color: Colors.pink[300],
-        ),
-        duration: Duration(seconds: 3),
-        leftBarIndicatorColor: Colors.blue[300],
-      )..show(context);
+      // Flushbar(
+      //   title: "Success",
+      //   message: '${token['access_token']}',
+      //   icon: Icon(
+      //     Icons.info_outline,
+      //     size: 28.0,
+      //     color: Colors.pink[300],
+      //   ),
+      //   duration: Duration(seconds: 3),
+      //   leftBarIndicatorColor: Colors.blue[300],
+      // )..show(context);
 
       //กลับไปที่หน้า home_stack
       //ทำการหน่วงเวลาแล้วค่อยไปหน้าล็อกอิน
@@ -137,21 +178,58 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 20),
                   Row(
                     children: <Widget>[
-                      MaterialButton(
-                        child: Text("Log In"),
-                        onPressed: () {
-                          if (_fbKey.currentState.saveAndValidate()) {
-                            login(_fbKey.currentState.value);
-                          }
-                        },
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          label: Text('Log In'),
+                          icon: Icon(Icons.login_rounded),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.purple,
+                            //side: BorderSide(color: Colors.red, width: 5),
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                            ),
+                            padding: EdgeInsets.all(12),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            // shape: const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                          ),
+                          onPressed: () {
+                            if (_fbKey.currentState.saveAndValidate()) {
+                              // print(_fbKey.currentState.value);
+                              login(_fbKey.currentState.value);
+                            }
+                          },
+                        ),
                       ),
-                      MaterialButton(
-                        child: Text("Register"),
-                        onPressed: () {
-                          //_fbKey.currentState.reset();
-                          Navigator.pushNamed(context, '/register');
-                        },
-                      ),
+
+                      // MaterialButton(
+                      //   child: Text("Log In"),
+                      //   onPressed: () {
+                      //     if (_fbKey.currentState.saveAndValidate()) {
+                      //       login(_fbKey.currentState.value);
+                      //     }
+                      //   },
+                      // ),
+                      // MaterialButton(
+                      //   child: Text("Register"),
+                      //   onPressed: () {
+                      //     //_fbKey.currentState.reset();
+                      //     Navigator.pushNamed(context, '/register');
+                      //   },
+                      // ),
+                      Expanded(
+                        child: FlatButton(
+                          child: Text("สมัครสมาชิก",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline)),
+                          textColor: Colors.white,
+                          onPressed: () {
+                            // _fbKey.currentState.reset();
+                            Navigator.pushNamed(context, '/register');
+                          },
+                        ),
+                      )
                     ],
                   ),
                 ],
