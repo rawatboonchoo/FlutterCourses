@@ -179,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {
                       //onTap คือการใช้ มือกด ใน GestureDetector จะไม่มี onPressed
                       Navigator.pushNamed(
-                          context, 'homestack/about'); //เรียกใช้หน้า abount
+                          context, 'homestack/map'); //เรียกใช้หน้า abount
                     },
                     child: Container(
                       padding: const EdgeInsets.all(8),

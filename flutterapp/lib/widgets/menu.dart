@@ -25,8 +25,7 @@ class _MenuState extends State<Menu> {
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: AssetImage('assets/images/me.png'),
                 ),
-                accountEmail:
-                    Text('${profile['email']} role:${profile['rol']}'),
+                accountEmail: Text('${profile['email']}'),
                 accountName: Text('${profile['name']} '),
               );
             },
