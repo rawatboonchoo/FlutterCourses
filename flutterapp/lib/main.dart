@@ -7,8 +7,22 @@ import 'package:flutterapp/pages/login_page.dart';
 import 'package:flutterapp/pages/product_stack/product_stack.dart';
 import 'package:flutterapp/pages/register_page.dart';
 
+//shared_preferences //ไว้สำหรับเก็บข้อมูลในเครื่องรูปแบบ Key Value
+import 'package:shared_preferences/shared_preferences.dart';
+
+String token;
+
 //Container เทียบเท่ากับ div ของ Html
-void main() {
+void main() async {
+  //check ว่า login หรือยัง
+  //ต้องกำหนดเสมอเมื่อต้องการเช็คข้อูลในหน้าแรก
+  WidgetsFlutterBinding.ensureInitialized();
+  //เกบข้อมูลลงในเครื่อง SharedPreferences
+  //เมื่อมี await ต้องมี async ใน function เสมอ
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  token = prefs.getString('token');
+  print(token);
+  
   runApp(MyApp());
 }
 
@@ -36,13 +50,15 @@ class MyApp extends StatelessWidget {
       //home: MyHomePage(title: 'Flutter Mobile Framework'), เนื่องจากจะใช้ initialRount แทน
       initialRoute: '/', //การสร้างลิงค์สำหรับเปิดหน้า
       //groub rout
-      routes: {
-        '/' : (context) => LoginPage(), //หน้าแรก
-        '/register' : (context) => RegisterPage(), //หน้าแรก
+      routes: {   
+        // '/': (context) =>  LoginPage(), //หน้าแรก     
+        '/': (context) =>  token == null ? LoginPage() : HomeStack(), //check login
+        '/register': (context) => RegisterPage(), //หน้าสมัครสมาชิก
         //'/': (context) =>HomeStack(), //ไม่ใส่ title เพราะมีรูปภาพแล้ว | หน้าแรกจะใช้ '/'
         '/homestack': (context) => HomeStack(),
         '/productstack': (context) => ProductStack(),
         '/firebase': (context) => FirePage(),
+        '/login': (context) => LoginPage(),
       },
     );
   }

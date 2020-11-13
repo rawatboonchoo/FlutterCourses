@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/widgets/menu.dart';
 
+//shared_preferences //ไว้สำหรับเก็บข้อมูลในเครื่องรูปแบบ Key Value
+import 'package:shared_preferences/shared_preferences.dart';
+
 class MyHomePage extends StatefulWidget {
   //StatefulWidget จะมี _MyHomePageState
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -38,6 +41,17 @@ class _MyHomePageState extends State<MyHomePage> {
     print('dispose (home page)');
     super.dispose();
   }
+  //ออกจากระบบ
+  Future<void> logout() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Future ต้องมี await กำกับ
+    await prefs.remove('token');
+    await prefs.remove('profile');
+    //กลับไปหน้าล็อกอิน Navigator.of เนื่องจากเราอยู่ในหน้า home_stack เพราะหน้า login อยู่ในหน้าแรก
+    Navigator.of(context, rootNavigator: true)
+        .pushNamedAndRemoveUntil('/login', (route) => false);
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: null),
           IconButton(
               icon: Icon(Icons.exit_to_app, color: Colors.white, size: 30),
-              onPressed: null)
+              onPressed: (){
+                logout();
+              })
         ],
         //leading: //คือ icon ทางซ้ายบนของ Appbar
       ),
