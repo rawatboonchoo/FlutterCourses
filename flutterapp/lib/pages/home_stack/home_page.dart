@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutterapp/redux/app_reducer.dart';
+import 'package:flutterapp/redux/profile/profile_action.dart';
 import 'package:flutterapp/widgets/menu.dart';
 //import convert Decode Json
 import 'dart:convert';
@@ -33,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   //ประกาศตัวแปรรับข้อมูล profile
-  Map<String, dynamic> profile;
+  // Map<String, dynamic> profile;
 
   //initState //จะเกิดขึ้น 1 ครั้งเมื่อมีการเรียกใช้งานจากหน้าจอ one-only
   @override
@@ -55,9 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> getProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    setState(() {
-      profile = json.decode(prefs.getString('profile'));
-    });
+    //setState(() {
+    //  profile = json.decode(prefs.getString('profile'));
+    //});
+    var newProfile = json.decode(prefs.getString('profile'));
+    //  เรียก updateProfileAction
+    final store = StoreProvider.of<AppState>(context);
+    store.dispatch(updateProfileAction(newProfile));
   }
 
   //ออกจากระบบ
